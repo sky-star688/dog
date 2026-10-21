@@ -1,0 +1,40 @@
+P1散件装配篇
+P1-1机械臂主体组装          https://www.bilibili.com/video/BV1RfH5eLEAm?p=1&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-2手柄接收器安装          https://www.bilibili.com/video/BV1RfH5eLEAm?p=2&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-3蓝牙模块安装             https://www.bilibili.com/video/BV1RfH5eLEAm?p=3&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-4控制板连接电源线       https://www.bilibili.com/video/BV1RfH5eLEAm?p=4&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-5ch340串口驱动安装    https://www.bilibili.com/video/BV1RfH5eLEAm?p=5&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-6控制板程序下载          https://www.bilibili.com/video/BV1RfH5eLEAm?p=6&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-7总线舵机ID号修改      https://www.bilibili.com/video/BV1RfH5eLEAm?p=7&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-8舵机接线                   https://www.bilibili.com/video/BV1RfH5eLEAm?p=8&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-9控制板安装                https://www.bilibili.com/video/BV1RfH5eLEAm?p=9&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P1-10偏差调节                 https://www.bilibili.com/video/BV1RfH5eLEAm?p=10&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+
+P2成品操控篇
+P2-1手机控制                  https://www.bilibili.com/video/BV1RfH5eLEAm?p=11&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P2-2手柄遥控                  https://www.bilibili.com/video/BV1RfH5eLEAm?p=12&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P2-3电脑控制                  https://www.bilibili.com/video/BV1RfH5eLEAm?p=13&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+
+P3基础学习篇
+P3-1动作组软件介绍         https://www.bilibili.com/video/BV1RfH5eLEAm?p=14&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-2编写一个动作组         https://www.bilibili.com/video/BV1RfH5eLEAm?p=15&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-3开机动作设置            https://www.bilibili.com/video/BV1RfH5eLEAm?p=16&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-4控制板接口介绍         https://www.bilibili.com/video/BV1RfH5eLEAm?p=17&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-4控制板引脚映射         https://www.bilibili.com/video/BV1RfH5eLEAm?p=18&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-5串口指令介绍            https://www.bilibili.com/video/BV1RfH5eLEAm?p=19&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-6Keil安装破解             https://www.bilibili.com/video/BV1RfH5eLEAm?p=20&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-7串口驱动安装            https://www.bilibili.com/video/BV1RfH5eLEAm?p=21&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-8控制板程序下载        https://www.bilibili.com/video/BV1RfH5eLEAm?p=22&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-9出厂程序讲解            https://www.bilibili.com/video/BV1RfH5eLEAm?p=23&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-10手机控制指令修改   https://www.bilibili.com/video/BV1RfH5eLEAm/?p=24&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-11手柄控制指令修改   https://www.bilibili.com/video/BV1RfH5eLEAm?p=25&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-12串口通信控制          https://www.bilibili.com/video/BV1RfH5eLEAm?p=26&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+P3-13总线舵机介绍          https://www.bilibili.com/video/BV1RfH5eLEAm?p=27&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+
+P4逆运动学篇
+P4-1逆运动学指令介绍     https://www.bilibili.com/video/BV1RfH5eLEAm?p=28&vd_source=39b23ce5b85ad6869cb8c20faf71dfc9
+
+
+
+
+ 

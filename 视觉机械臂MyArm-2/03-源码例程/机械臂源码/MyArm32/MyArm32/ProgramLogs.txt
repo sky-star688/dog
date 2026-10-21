@@ -1,0 +1,87 @@
+[2023-12-20 10:27:Program Success:51FF6A066778505413510467 C:\Users\xbrobot\Desktop\MyArmSTM32\OUT\Jibot1-32.hex
+[2023-12-30 12:41:Program Success:51FF6B067165555057370187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-02 18:05:Program Success:240B0F13A315303030303032 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-04 08:27:Program Success:51FF6D067165555051400187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-04 14:54:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-05 14:30:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-19 12:13:Program Success:51FF69067165555052320187 C:\Users\xbrobot\Desktop\同步机械臂功能\从机\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-19 12:16:Program Success:56FF6E067085565153411767 C:\Users\xbrobot\Desktop\同步机械臂功能\从机\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-23 10:45:Program Success:51FF6B067165555020550187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-23 10:47:Program Success:51FF6B067165555020550187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-23 10:50:Program Success:51FF6B067165555020550187 C:\Users\xbrobot\Desktop\出厂程序2023\出厂程序\01出厂例程\Jibot1-32\OUT\Jibot1-32.hex
+[2024-01-23 11:17:Program Success:51FF6B067165555020550187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-24 10:44:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-24 11:09:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:35:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:37:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:42:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:44:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:46:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:55:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 21:56:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 22:11:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 22:16:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 22:19:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 22:21:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-01-28 22:23:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:25:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:34:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:35:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:36:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:37:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:41:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:44:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:47:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 22:58:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:01:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:02:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:03:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:07:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:12:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:13:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:15:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:17:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:23:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:30:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:32:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:34:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:38:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:46:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-28 23:54:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-29 00:00:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-29 00:04:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-29 00:14:日志记录不属免费功能,请注册支持作者改进软件
+[2024-01-29 00:17:日志记录不属免费功能,请注册支持作者改进软件
+[2024-02-19 11:55:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-03-13 09:07:Program Success:51FF6B067165555054330187 C:\Users\xbrobot\Desktop\Mym-2项目资料\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-03-14 10:37:Program Success:51FF6B067165555054330187 C:\Users\xbrobot\Desktop\Mym-2项目资料\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-03-14 10:44:Program Success:51FF6B067165555054330187 C:\Users\xbrobot\Desktop\Mym-2项目资料\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-03-14 19:06:Program Success:51FF6B067165555054330187 C:\Users\xbrobot\Desktop\Mym-2项目资料\MyArm机械臂源码\stm32源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-06-07 14:03:Program Success:51FF6B067165555053370187 E:\10-预备产品\01-OpenMV视觉机械臂资料包\06-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-07-12 22:04:Program Success:51FF6E067165555052480187 E:\10-预备产品\01-视觉机械臂资料包\06-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-07-12 22:15:Program Success:51FF6E067165555052480187 E:\10-预备产品\01-视觉机械臂资料包\06-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-07-18 09:08:Program Success:34FF69063142543946122143 E:\10-预备产品\02-二维云台资料包\06-源码例程\MyArmSTM32\MyArmSTM32\OUT\MyArm-32.hex
+[2024-07-18 09:08:Program Success:34FF6F063142543944122143 E:\10-预备产品\02-二维云台资料包\06-源码例程\MyArmSTM32\MyArmSTM32\OUT\MyArm-32.hex
+[2024-08-20 18:15:Program Success:34FF69063142543924512143 E:\10-预备产品\01-视觉机械臂资料包\04-进阶课程\06-机械臂逆运动学\机械臂逆运动学资料\总线机械臂程序\MyArmSTM32\OUT\MyArm-32.hex
+[2024-08-20 18:22:Program Success:34FF69063142543924512143 E:\10-预备产品\01-视觉机械臂资料包\06-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2024-08-20 18:22:Program Success:34FF69063142543924512143 E:\10-预备产品\01-视觉机械臂资料包\06-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2025-05-21 08:56:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\视觉机械臂MyArm-2\03-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2025-05-21 09:50:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\视觉机械臂MyArm-2\03-源码例程\MyArmSTM32\OUT\MyArm-32.hex
+[2025-05-21 13:07:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-05-21 13:14:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-05-21 13:42:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-05-21 14:17:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-05-21 14:22:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-05-21 14:23:Program Success:48FF70064987714823252167 C:\Users\Admin\Desktop\x-work\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-07-10 11:38:Program Success:52FF6A064987865017260367 F:\02-研发文件\05-产品资料\视觉机械臂优化程序\05-视觉识别-openmv-6.30\05-视觉识别-openmv-led-return-uart\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-07-29 14:06:Program Success:52FF6D064987865024160367 E:\openmv视觉机械臂资料\06-智能视觉\03-源码例程\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2025-11-24 16:04:Program Success:55FF69065049655440232267 F:\11.24OPENMV代码\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-01-06 15:02:Program Success:55FF6D065049655426262267 F:\08-发货调试\视觉机械臂\OPENMV\11.29openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-01-06 15:08:Program Success:55FF6A065049655451242267 F:\08-发货调试\视觉机械臂\OPENMV\11.29openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-03-18 10:33:Program Success:55FF71065049655431061967 F:\08-发货调试\视觉机械臂\OPENMV\11.29openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-03-26 11:16:Program Success:55FF6F065049655442521867 C:\Users\0920\Desktop\3.26openmv机械臂\3.26openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-03-26 22:22:Program Success:55FF6D065049655444511867 C:\Users\0920\Desktop\3.26openmv机械臂\3.26openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-04-11 14:02:Program Success:55FF6A065049655447521867 G:\08-发货调试\视觉机械臂\OPENMV\3.30openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-04-11 14:41:Program Success:55FF6B065049655445471867 G:\08-发货调试\视觉机械臂\OPENMV\3.30openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-04-11 14:41:Program Success:55FF6B065049655445471867 G:\08-发货调试\视觉机械臂\OPENMV\3.30openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex
+[2026-04-11 15:11:Program Success:55FF70065049655407252267 G:\08-发货调试\视觉机械臂\OPENMV\3.30openmv机械臂\综合\keil_uart_ps2\ps2_uart\OUT\MyArm-32.hex

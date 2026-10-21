@@ -1,0 +1,50 @@
+cmd_vel_guard:
+  ros__parameters:
+    input_topic: /inspection/cmd_vel_raw
+    output_topic: /cmd_vel
+    enable_topic: /inspection/motion_enable
+    publish_hz: 20.0
+    timeout_sec: 0.25
+    max_linear_x: 0.30
+    max_linear_y: 0.15
+    max_angular_z: 0.50
+    start_enabled: false
+
+arm_serial_bridge:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    read_timeout_sec: 0.05
+    dry_run: true
+    home_command: $DJR!
+    stop_command: $DST!
+    pick_command: $DGS:1!
+    place_command: $DGS:2!
+    command_topic: /arm/command
+    status_topic: /arm/status
+
+vision_detector:
+  ros__parameters:
+    camera_topic: /camera/color/image_raw
+    detections_topic: /inspection/detections
+    annotated_topic: /inspection/annotated_image
+    model_path: /home/ysc/lite3_industrial_inspection_ws/models/best.onnx
+    labels_path: /home/ysc/lite3_industrial_inspection_ws/models/labels.txt
+    confidence: 0.55
+    iou_threshold: 0.45
+    input_size: 640
+    process_every_n_frames: 2
+    publish_annotated: true
+    device: "0"
+
+inspection_manager:
+  ros__parameters:
+    detections_topic: /inspection/detections
+    event_topic: /inspection/event
+    arm_command_topic: /arm/command
+    motion_enable_topic: /inspection/motion_enable
+    target_classes: [anomaly, block]
+    minimum_confidence: 0.65
+    stable_frames: 5
+    detection_reset_sec: 1.0
+    auto_pick: false

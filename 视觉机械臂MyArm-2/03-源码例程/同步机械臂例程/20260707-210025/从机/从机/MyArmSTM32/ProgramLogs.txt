@@ -1,0 +1,6 @@
+[2023-12-20 10:27:Program Success:51FF6A066778505413510467 C:\Users\xbrobot\Desktop\MyArmSTM32\OUT\Jibot1-32.hex
+[2023-12-30 12:41:Program Success:51FF6B067165555057370187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-02 18:05:Program Success:240B0F13A315303030303032 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-04 08:27:Program Success:51FF6D067165555051400187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-04 14:54:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex
+[2024-01-05 14:30:Program Success:51FF6E067165555052480187 C:\Users\xbrobot\Desktop\MyArm\MyArmSTM32\OUT\Jibot1-32.hex

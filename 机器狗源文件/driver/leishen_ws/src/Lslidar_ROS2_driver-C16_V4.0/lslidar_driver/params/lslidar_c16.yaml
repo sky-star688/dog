@@ -1,0 +1,59 @@
+/c16/lslidar_driver_node:
+  ros__parameters:
+    packet_rate: 840.0
+    device_ip: 192.168.1.201
+    msop_port: 2368
+    difop_port: 2369
+    pcl_type: true
+    lidar_type: c16                 # 雷达类型  c1/c8/c16/c32
+    add_multicast: false
+    group_ip: 224.1.1.2
+    use_gps_ts: false
+    min_range: 0.3
+    max_range: 200.0
+    frame_id: rslidar
+    distance_unit: 0.4
+    angle_disable_min: 0
+    angle_disable_max: 0
+    horizontal_angle_resolution: 0.18     #10Hz:0.18  20Hz:0.36 5Hz: 0.09
+    scan_num: 0
+    read_once: false
+    publish_scan: true
+    topic_name: lslidar_point_cloud
+    coordinate_opt: false
+    #pcap: /home/ls/work/fuhong/data/V4.0/c16.pcap                        #pcap包路径，加载pcap包时打开此注释
+
+    debug: false
+
+    filter_voxel: true
+    filter_leaf_size_m: 0.05
+
+    filter_box: true
+    crop_negative: true
+    keep_organized: false
+    filter_front_m: 0.25
+    filter_back_m: 0.80
+    filter_left_m: 0.40
+    filter_right_m: 0.40
+    filter_lower_height_m: 0.5
+    filter_higher_height_m: 0.1
+
+    filter_plane: true
+
+    #不带壳
+    plane_a: 0.0
+    plane_b: 0.288232
+    plane_c: 0.95756
+    plane_d: 0.0
+
+    #老版本壳
+    # plane_a: -0.148923
+    # plane_b: 0.232052
+    # plane_c: 0.961234
+    # plane_d: 0.0
+
+    plane_distance_threshold: 0.10
+    plane_filter_x_min: -0.6
+    plane_filter_x_max: 0.6
+    plane_filter_y_min: 0.0
+    plane_filter_y_max: 1.7

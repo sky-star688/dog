@@ -1,0 +1,12 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/home/zox/pipeline_ros2/build/pipeline",
+        "/home/zox/pipeline_ros2/install/pipeline/lib/python3.8/site-packages",
+        "/opt/ros/foxy/lib/python3.8/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/home/zox/pipeline_ros2/build/pipeline",
+        "/home/zox/pipeline_ros2/install/pipeline/lib/python3.8/site-packages",
+        "/opt/ros/foxy/lib/python3.8/site-packages"
+    ]
+}

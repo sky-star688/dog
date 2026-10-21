@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="3">
+    <name>dr_nav2</name>
+    <version>0.0.0</version>
+    <description>A move_base based navigation package</description>
+    <license>TODO</license>
+    <maintainer email="fanzhanhao@deeprobotics.cn">Zhang Jixiang</maintainer>
+    <author email="fanzhanhao@deeprobotics.cn">Zhang Jixiang</author>
+    <buildtool_depend>ament_cmake</buildtool_depend>
+    <export>
+        <build_type>ament_cmake</build_type>
+    </export>
+</package>

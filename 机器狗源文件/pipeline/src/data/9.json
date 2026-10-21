@@ -1,0 +1,17 @@
+{
+    "order": 9,
+    "robot_pose": {
+        "pos_x": 0.5379409790039062,
+        "pos_y": -0.1371769905090332,
+        "pos_z": 0.0,
+        "ori_x": -0.011548612757102452,
+        "ori_y": -0.007743567233119185,
+        "ori_z": -0.007231078842751872,
+        "ori_w": 0.9998771815621469
+    },
+    "option": {
+        "even_low_speed": true,
+        "even_medium_speed": false,
+        "uneven_high_step": false
+    }
+}

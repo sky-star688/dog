@@ -1,0 +1,10 @@
+# Ask the large model to recognise the target in the current camera frame.
+
+string prompt
+string image_topic
+float32 min_confidence
+string[] allowed_classes
+---
+bool success
+string detections_json
+string message

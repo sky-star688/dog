@@ -9,6 +9,7 @@ Lite3 巡检共享库与遗留单狗栈。
 - ROS 节点：`cmd_vel_mux`、`cmd_vel_guard`、`localization_monitor`、
   `arm_serial_bridge`、`vision_detector`、`depth_projector`、
   `event_recorder`、`inspection_manager`
+- 大模型接口：`vlm`（HTTP/OpenAI 兼容 + mock，结果 JSON 契约）
 
 双狗包（`lite3_01_mapping`、`lite3_02_picking`）复用本包的领域层与安全节点。
 
@@ -28,3 +29,4 @@ PYTHONPATH=$PWD python3 -m pytest test/ -v
 - `docs/build_and_deploy.md` 构建与部署
 - `docs/testing_and_acceptance.md` 验收阶段
 - `docs/OPERATIONS.md` 双狗操作与故障排查
+- `docs/large_model_interface.md` 大模型识别接口与后端配置

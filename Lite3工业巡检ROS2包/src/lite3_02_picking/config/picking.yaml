@@ -29,25 +29,16 @@ map:
   metadata_topic: /shared_map/metadata
 
 # Localisation on Dog 1's shared map.
-# CRITICAL: Dog 2 uses AMCL against Dog 1's /shared_map.  The initial pose
-# MUST be the surveyed real-world position of Dog 2 in that map.  If wrong,
-# Dog 2 will never localise and picking_manager will reject all targets.
+# Node parameters (initial pose, convergence thresholds) are authoritative in
+# config/picking_params.yaml under `dog2_localization`.  Edit the surveyed
+# initial_x / initial_y / initial_yaw there before first run.
+# This section is kept only as documentation of the contract.
 localization:
-  initial_x: 0.0          # SURVEYED – Dog 2 home X in map frame
-  initial_y: 0.0          # SURVEYED – Dog 2 home Y in map frame
-  initial_yaw: 0.0        # SURVEYED – Dog 2 home orientation (radians)
-  initial_cov_xy: 0.25
-  initial_cov_yaw: 0.10
-  convergence_cov_xy_max: 0.15
-  convergence_cov_yaw_max: 0.08
-  convergence_stable_frames: 10
-  divergence_cov_xy_min: 1.0
-  auto_relocalize: true
-  relocalize_delay_sec: 5.0
   amcl_pose_topic: /amcl_pose
   initial_pose_topic: /initialpose
   localization_status_topic: /dog2/localization_status
   localization_info_topic: /dog2/localization_info
+  note: "initial pose lives in picking_params.yaml (dog2_localization)"
 
 # Workspaces (must match fleet_manager/config/fleet.yaml).
 workspaces:
@@ -95,6 +86,39 @@ openmv:
   arm_offset_z_mm: 50.0
   stable_frames: 10
   positioning_timeout_sec: 30.0
+
+# ---- Large-model (VLM) recognition ----
+# The model recognises the target and returns the same detection JSON schema;
+# picking_manager gates PICK on it according to target_source/vlm_required.
+# A VLM result is advisory: it never writes to the arm directly.
+vlm:
+  enabled: true
+  backend: mock                 # mock (offline bench) | http (OpenAI-compatible server)
+  endpoint: ""                  # e.g. http://127.0.0.1:8000/v1/chat/completions
+  model: ""                     # e.g. qwen2.5-vl-7b / gpt-4o-mini / llama3.2-vision
+  api_key_env: VLM_API_KEY      # read from environment; empty for local servers
+  prompt: >-
+    你是机器狗视觉识别模块。找出画面中需要抓取的目标。只输出 JSON，不要输出解释，
+    格式：{"detections":[{"class_name":"block","confidence":0.9,
+    "bbox":[x1,y1,x2,y2],"grasp_point":[u,v]}]}。
+  timeout_sec: 8.0
+  retries: 1
+  min_confidence: 0.50
+  allowed_classes: [block]
+  max_tokens: 512
+  use_json_mode: false          # true only if the server supports response_format
+  image_topic: /dog2/camera/color/image_raw
+  output_topic: /dog2/vlm_detections
+  status_topic: /dog2/vlm_status
+  process_every_n_frames: 15
+  jpeg_quality: 80
+  mock_detections: ""           # JSON string; empty = mock emits no detections
+  target_source: openmv         # openmv | vlm | any
+  vlm_required: false           # openmv mode: require VLM confirmation too
+  require_openmv: true          # vlm mode: still require OpenMV fine position
+  vlm_min_confidence: 0.50
+  vlm_stable_frames: 5
+  vlm_stale_sec: 3.0
 
 safety:
   max_linear_x: 0.30

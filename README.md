@@ -69,10 +69,26 @@ Dog 1 实时建图时地图会变化，Dog 2 若直接在上面定位必然漂�
 
 1. Dog 1 建图完成后执行 `/dog1/freeze_map`，发布带 SHA256 的静态地图快照
 2. Dog 2 只接受冻结且哈希校验通过的地图
-3. Dog 2 的初始位姿必须在 `config/picking.yaml` 中按测绘值填写，AMCL 收敛后才接受目标
+3. Dog 2 的初始位姿必须在 `config/picking_params.yaml` 中按测绘值填写，AMCL 收敛后才接受目标
 4. 丢失定位时 `/dog2/relocalize` 可全局重定位
 
 详见 [Lite3工业巡检ROS2包/README.md](Lite3工业巡检ROS2包/README.md)。
+
+## 大模型识别接口
+
+拾取狗可接任意视觉语言大模型（本地 vLLM/Ollama 或云端 OpenAI 兼容 API）：
+
+```
+相机帧 → vlm_detector_dog2 → /dog2/vlm_detections (JSON)
+      → picking_manager 识别准入 → OpenMV/深度门控 → PICK → PLACE
+```
+
+- 后端可插拔：`mock`（离线台架）/ `http`（OpenAI 兼容）
+- 失败显式上报，绝不编造目标；HTTP 在独立线程执行，不阻塞急停
+- 大模型结果只作建议，不能直接控制机械臂
+
+配置见 `src/lite3_02_picking/config/picking_params.yaml`，契约见
+[large_model_interface.md](Lite3工业巡检ROS2包/src/lite3_inspection/docs/large_model_interface.md)。
 
 ## 许可
 

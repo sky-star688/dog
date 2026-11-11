@@ -56,6 +56,19 @@ Dog 2 仅在哈希校验通过后把地图转发到本地 `/map`。
 `depth_stale`、`camera_info_unavailable`、`insufficient_depth`、
 `depth_out_of_range`、`unstable_depth`、`transform_unavailable` 等。
 
+## 4.1 大模型识别（Dog 2）
+
+| 话题/服务 | 类型 | 说明 |
+| --- | --- | --- |
+| `/dog2/vlm_detections` | `std_msgs/String` | 大模型检测 JSON（与 2D 检测同构） |
+| `/dog2/vlm_status` | `std_msgs/String` | backend/model/latency/last_error |
+| `/dog2/vlm_query` | `std_srvs/srv/Trigger` | 对最新帧立即识别一次 |
+
+`detector_status`：`ready`、`no_detections`、`no_frame`、`backend_unavailable`、
+`parse_error`、`model_error`、`config_error`。结果只作识别建议；PICK 仍需通过
+`picking_manager` 的识别准入与 OpenMV/深度/机械臂门控。强类型定义见
+`fleet_interfaces/msg/VlmDetection.msg` 与 `srv/VlmQuery.srv`。
+
 ## 5. 机械臂
 
 `/dog2/arm_command`（`std_msgs/String`）只接受 `HOME`、`STOP`、`PICK`、`PLACE`

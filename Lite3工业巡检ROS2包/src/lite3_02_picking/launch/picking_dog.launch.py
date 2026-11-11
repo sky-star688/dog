@@ -1,17 +1,16 @@
-"""Dog 2 (lite3_02) – Picking + Arm launch file.
+"""Dog 2 (lite3_02) – Picking + Arm + VLM launch file.
 
 Launches:
-  - map_subscriber (receive + verify FROZEN shared map from Dog 1)
-  - dog2_localization (initial pose + AMCL convergence + relocalize)
-  - cmd_vel_mux + cmd_vel_guard (safety chain)
-  - localization_monitor (odom + TF)
-  - dog2_arm_bridge (MyArm-2 serial)
-  - openmv_positioner (OpenMV fine positioning)
-  - picking_manager (main picking brain)
+  - map_subscriber      (receive + verify FROZEN shared map from Dog 1)
+  - dog2_localization   (initial pose + AMCL convergence + relocalize)
+  - cmd_vel_mux / cmd_vel_guard / localization_monitor (safety chain)
+  - arm_bridge          (MyArm-2 serial)
+  - openmv_positioner   (OpenMV fine positioning)
+  - vlm_detector        (large-model recognition, optional)
+  - picking_manager     (main picking brain)
 
-Dog 2 refuses targets until:
-  1. /dog2/map_status has map_verified=true
-  2. /dog2/localization_status is true (AMCL converged)
+Dog 2 refuses targets until map_verified and AMCL localised; PICK additionally
+requires the recognition gate configured by target_source/vlm_required.
 """
 
 import os
@@ -31,8 +30,9 @@ def _true(name):
 def generate_launch_description():
     pkg_share = get_package_share_directory("lite3_02_picking")
     inspection_share = get_package_share_directory("lite3_inspection")
-    picking_config = os.path.join(pkg_share, "config", "picking.yaml")
-    inspection_config = os.path.join(inspection_share, "config", "inspection.yaml")
+    picking_params = os.path.join(pkg_share, "config", "picking_params.yaml")
+    inspection_params = os.path.join(inspection_share, "config", "inspection.yaml")
+    app_config = os.path.join(pkg_share, "config", "picking.yaml")
 
     namespace = LaunchConfiguration("namespace")
     robot_id = LaunchConfiguration("robot_id")
@@ -46,11 +46,12 @@ def generate_launch_description():
             DeclareLaunchArgument("enable_map", default_value="true"),
             DeclareLaunchArgument("enable_arm", default_value="true"),
             DeclareLaunchArgument("enable_openmv", default_value="true"),
+            DeclareLaunchArgument("enable_vlm", default_value="true"),
             Node(
                 package="lite3_02_picking",
                 executable="map_subscriber",
                 name="map_subscriber_dog2",
-                parameters=[picking_config],
+                parameters=[picking_params],
                 condition=_true("enable_map"),
                 **common
             ),
@@ -58,7 +59,7 @@ def generate_launch_description():
                 package="lite3_02_picking",
                 executable="dog2_localization",
                 name="dog2_localization",
-                parameters=[picking_config],
+                parameters=[picking_params],
                 condition=_true("enable_map"),
                 **common
             ),
@@ -67,7 +68,7 @@ def generate_launch_description():
                 executable="cmd_vel_mux",
                 name="cmd_vel_mux",
                 parameters=[
-                    inspection_config,
+                    inspection_params,
                     {
                         "enable_topic": "/dog2/motion_enable",
                         "estop_topic": "/dog2/estop",
@@ -80,7 +81,7 @@ def generate_launch_description():
                 executable="cmd_vel_guard",
                 name="cmd_vel_guard",
                 parameters=[
-                    inspection_config,
+                    inspection_params,
                     {"enable_topic": "/dog2/motion_enable"},
                 ],
                 **common
@@ -96,13 +97,7 @@ def generate_launch_description():
                 package="lite3_02_picking",
                 executable="dog2_arm_bridge",
                 name="arm_bridge_dog2",
-                parameters=[
-                    {
-                        "port": "/dev/ttyUSB0",
-                        "command_topic": "/dog2/arm_command",
-                        "status_topic": "/dog2/arm_status",
-                    }
-                ],
+                parameters=[picking_params],
                 condition=_true("enable_arm"),
                 **common
             ),
@@ -110,8 +105,17 @@ def generate_launch_description():
                 package="lite3_02_picking",
                 executable="openmv_positioner",
                 name="openmv_positioner_dog2",
-                parameters=[picking_config],
+                parameters=[picking_params],
                 condition=_true("enable_openmv"),
+                **common
+            ),
+            # Large-model recognition (advisory; gated before PICK).
+            Node(
+                package="lite3_02_picking",
+                executable="vlm_detector",
+                name="vlm_detector_dog2",
+                parameters=[picking_params],
+                condition=_true("enable_vlm"),
                 **common
             ),
             Node(
@@ -119,8 +123,11 @@ def generate_launch_description():
                 executable="picking_manager",
                 name="picking_manager_dog2",
                 parameters=[
-                    picking_config,
-                    {"robot_id": robot_id, "namespace": namespace},
+                    picking_params,
+                    {
+                        "robot_id": robot_id,
+                        "namespace": namespace,
+                    },
                 ],
                 **common
             ),

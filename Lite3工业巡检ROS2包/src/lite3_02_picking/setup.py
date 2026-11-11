@@ -26,6 +26,7 @@ setup(
             "map_subscriber = lite3_02_picking.map_subscriber:main",
             "dog2_localization = lite3_02_picking.dog2_localization:main",
             "dog2_arm_bridge = lite3_02_picking.arm_bridge:main",
+            "vlm_detector = lite3_02_picking.vlm_detector:main",
         ],
     },
 )

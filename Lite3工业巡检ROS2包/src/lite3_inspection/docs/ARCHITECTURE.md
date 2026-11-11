@@ -42,11 +42,28 @@ lite3_01_mapping（Dog 1）
 
 lite3_02_picking（Dog 2）
   map_subscriber（哈希校验）/ dog2_localization（AMCL 初始位姿+收敛）
-  openmv_positioner / dog2_arm_bridge / picking_manager
+  openmv_positioner / dog2_arm_bridge
+  vlm_detector（大模型识别，可插拔：http / mock）
+  picking_manager（识别准入 → PICK/PLACE）
 
 fleet_manager（协调器）
   fleet_state / handoff / workspace / fleet_safety / fleet_manager
 ```
+
+### 2.1 大模型识别接口
+
+```
+相机帧 → vlm_detector_dog2 ──HTTP(OpenAI 兼容)──► 大模型服务
+        │  失败时显式 detector_status，空检测
+        │  /dog2/vlm_detections (JSON，与 YOLO 检测同构)
+        ▼
+picking_manager 识别准入（target_source=openmv|vlm|any，vlm_required）
+        ▼
+OpenMV/深度门控 → PICK → PLACE
+```
+
+大模型结果只作建议，不能直接控制机械臂；HTTP 在独立线程执行，急停不被阻塞。
+详见 `docs/large_model_interface.md`。
 
 ## 3. 状态所有权
 

@@ -1,0 +1,65 @@
+# ROS 2 parameter file for Dog 1 nodes (valid ros__parameters layout).
+# Application config (map sharing / perception) lives in mapping.yaml.
+
+map_bridge_dog1:
+  ros__parameters:
+    robot_id: lite3_01
+    map_in_topic: /map
+    map_out_topic: /shared_map
+    metadata_topic: /shared_map/metadata
+    status_interval_sec: 2.0
+    auto_freeze_after_sec: 30.0
+
+mapping_manager_dog1:
+  ros__parameters:
+    robot_id: lite3_01
+    map_topic: /map
+    map_status_topic: /dog1/map_status
+    map_save_dir: ""
+    status_interval_sec: 2.0
+
+patrol_manager_dog1:
+  ros__parameters:
+    robot_id: lite3_01
+    navigation_action: navigate_to_pose
+    nav_server_wait_sec: 2.0
+    detections_topic: /dog1/detections_3d
+    localization_topic: /dog1/localization_status
+    estop_topic: /dog1/estop
+    motion_enable_topic: /dog1/motion_enable
+    target_classes: [anomaly, block]
+    minimum_confidence: 0.65
+    stable_frames: 5
+    detection_reset_sec: 1.0
+    fleet_mode: true
+    fleet_heartbeat_topic_base: /fleet/heartbeat
+    fleet_target_topic: /fleet/target_detection
+    fleet_status_topic: /lite3_01/handoff_status
+
+vision_detector_dog1:
+  ros__parameters:
+    camera_topic: /camera/color/image_raw
+    detections_topic: /dog1/detections
+    annotated_topic: /dog1/annotated_image
+    model_path: models/best.onnx
+    labels_path: models/labels.txt
+    confidence: 0.55
+    iou_threshold: 0.45
+    input_size: 640
+    process_every_n_frames: 2
+    publish_annotated: true
+
+depth_projector_dog1:
+  ros__parameters:
+    detections_topic: /dog1/detections
+    output_topic: /dog1/detections_3d
+    status_topic: /dog1/depth_status
+    depth_topic: /camera/aligned_depth_to_color/image_raw
+    camera_info_topic: /camera/color/camera_info
+    target_frame: map
+    max_depth_age_sec: 1.0
+    min_valid_ratio: 0.30
+    max_mad_m: 0.05
+    min_depth_m: 0.15
+    max_depth_m: 6.0
+    sample_step: 2

@@ -73,12 +73,33 @@ bash scripts/run_dog2.sh
 ros2 topic echo /dog2/map_status
 ros2 topic echo /dog2/localization_status
 
+# 大模型识别：即时查询 / 状态
+ros2 service call /dog2/vlm_query std_srvs/srv/Trigger "{}"
+ros2 topic echo /dog2/vlm_status
+ros2 topic echo /dog2/vlm_detections
+
 # 定点重定位 / 机械臂
 ros2 service call /dog2/set_initial_pose std_srvs/srv/Trigger "{}"
 ros2 service call /dog2/relocalize std_srvs/srv/Trigger "{}"
 ros2 service call /dog2/home std_srvs/srv/Trigger "{}"
 ros2 service call /dog2/stop std_srvs/srv/Trigger "{}"
 ```
+
+### 大模型识别接入（可选，默认 mock）
+
+识别准入在 `src/lite3_02_picking/config/picking_params.yaml`：
+
+| 参数 | 作用 |
+|------|------|
+| `vlm_detector_dog2.backend` | `mock`（离线台架）或 `http`（OpenAI 兼容服务） |
+| `vlm_detector_dog2.endpoint/model` | 本地 vLLM/Ollama 或云端 API |
+| `vlm_detector_dog2.api_key_env` | 云端密钥的环境变量名 |
+| `picking_manager_dog2.target_source` | `openmv` / `vlm` / `any` |
+| `picking_manager_dog2.vlm_required` | openmv 模式下是否还要求大模型确认 |
+
+完整契约与后端示例见
+[`src/lite3_inspection/docs/large_model_interface.md`](src/lite3_inspection/docs/large_model_interface.md)。
+大模型结果只作识别建议，PICK 仍需通过识别准入与 OpenMV/深度/机械臂门控。
 
 ### 协调器
 

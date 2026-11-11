@@ -1,0 +1,111 @@
+# ROS 2 parameter file for Dog 2 nodes (valid ros__parameters layout).
+# Application config (workspaces/home) lives in picking.yaml and is read by
+# picking_manager directly.
+
+picking_manager_dog2:
+  ros__parameters:
+    map_id: lite3_shared
+    navigation_action: navigate_to_pose
+    nav_server_wait_sec: 2.0
+    target_assignment_topic: /lite3_02/target_assignment
+    map_status_topic: /dog2/map_status
+    localization_topic: /dog2/localization_status
+    openmv_position_topic: /dog2/openmv_position
+    vlm_detections_topic: /dog2/vlm_detections
+    arm_command_topic: /dog2/arm_command
+    arm_ready_topic: /dog2/arm_ready
+    arm_status_topic: /dog2/arm_status
+    motion_enable_topic: /dog2/motion_enable
+    estop_topic: /dog2/estop
+    pick_timeout_sec: 15.0
+    place_timeout_sec: 15.0
+    positioning_timeout_sec: 30.0
+    retreat_timeout_sec: 60.0
+    approach_timeout_sec: 120.0
+    fleet_mode: true
+    fleet_heartbeat_topic_base: /fleet/heartbeat
+    fleet_status_topic: /fleet/handoff_status
+    fleet_report_topic: /fleet/handoff_status
+    target_source: openmv
+    vlm_required: false
+    require_openmv: true
+    vlm_min_confidence: 0.50
+    vlm_stable_frames: 5
+    vlm_stale_sec: 3.0
+
+vlm_detector_dog2:
+  ros__parameters:
+    enabled: true
+    backend: mock
+    endpoint: ""
+    model: ""
+    api_key_env: VLM_API_KEY
+    prompt: >-
+      你是机器狗视觉识别模块。找出画面中需要抓取的目标。只输出 JSON，不要输出解释，
+      格式：{"detections":[{"class_name":"block","confidence":0.9,
+      "bbox":[x1,y1,x2,y2],"grasp_point":[u,v]}]}。
+    timeout_sec: 8.0
+    retries: 1
+    min_confidence: 0.50
+    allowed_classes: [block]
+    max_tokens: 512
+    use_json_mode: false
+    image_topic: /dog2/camera/color/image_raw
+    output_topic: /dog2/vlm_detections
+    status_topic: /dog2/vlm_status
+    process_every_n_frames: 15
+    jpeg_quality: 80
+    mock_detections: ""
+
+map_subscriber_dog2:
+  ros__parameters:
+    shared_map_topic: /shared_map
+    local_map_topic: /map
+    metadata_topic: /shared_map/metadata
+    map_status_topic: /dog2/map_status
+    republish_map: true
+
+dog2_localization:
+  ros__parameters:
+    initial_pose_topic: /initialpose
+    amcl_pose_topic: /amcl_pose
+    localization_status_topic: /dog2/localization_status
+    localization_info_topic: /dog2/localization_info
+    initial_x: 0.0
+    initial_y: 0.0
+    initial_yaw: 0.0
+    initial_cov_xy: 0.25
+    initial_cov_yaw: 0.10
+    convergence_cov_xy_max: 0.15
+    convergence_cov_yaw_max: 0.08
+    convergence_stable_frames: 10
+    divergence_cov_xy_min: 1.0
+    auto_relocalize: true
+    relocalize_delay_sec: 5.0
+
+openmv_positioner_dog2:
+  ros__parameters:
+    openmv_telemetry_topic: /openmv/telemetry
+    output_topic: /dog2/openmv_position
+    pixel_width: 320
+    pixel_height: 240
+    target_min_width: 20
+    target_max_width: 200
+    mm_per_pixel: 0.5
+    arm_offset_x_mm: 100.0
+    arm_offset_y_mm: 0.0
+    arm_offset_z_mm: 50.0
+    stable_frames: 5
+
+arm_bridge_dog2:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    read_timeout_sec: 0.05
+    dry_run: true
+    home_command: "$DJR!"
+    stop_command: "$DST!"
+    pick_command: "$DGS:1!"
+    place_command: "$DGS:2!"
+    command_topic: /dog2/arm_command
+    status_topic: /dog2/arm_status

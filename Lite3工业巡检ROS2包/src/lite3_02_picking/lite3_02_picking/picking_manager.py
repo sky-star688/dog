@@ -61,10 +61,33 @@ class PickingManager(Node):
         self.declare_parameter("fleet_heartbeat_topic_base", "/fleet/heartbeat")
         self.declare_parameter("fleet_status_topic", "/fleet/handoff_status")
         self.declare_parameter("fleet_report_topic", "/fleet/handoff_status")
+        # Large-model (VLM) recognition gating.
+        self.declare_parameter("vlm_detections_topic", "/dog2/vlm_detections")
+        self.declare_parameter("target_source", "openmv")  # openmv | vlm | any
+        self.declare_parameter("vlm_required", False)
+        self.declare_parameter("require_openmv", True)
+        self.declare_parameter("vlm_min_confidence", 0.50)
+        self.declare_parameter("vlm_stable_frames", 5)
+        self.declare_parameter("vlm_stale_sec", 3.0)
 
         self.robot_id = str(self.get_parameter("robot_id").value)
         self.fleet_mode = bool(self.get_parameter("fleet_mode").value)
         self.model = PickingModel(robot_id=self.robot_id)
+
+        # VLM gating configuration (validated below).
+        self._target_source = str(self.get_parameter("target_source").value)
+        if self._target_source not in ("openmv", "vlm", "any"):
+            self.get_logger().error(
+                "target_source must be openmv|vlm|any, got %r" % self._target_source
+            )
+            self._target_source = "openmv"
+        self._vlm_required = bool(self.get_parameter("vlm_required").value)
+        self._require_openmv = bool(self.get_parameter("require_openmv").value)
+        self._vlm_min_confidence = float(self.get_parameter("vlm_min_confidence").value)
+        self._vlm_stable_required = int(self.get_parameter("vlm_stable_frames").value)
+        self._vlm_stale_sec = float(self.get_parameter("vlm_stale_sec").value)
+        self._vlm_stable = 0
+        self._vlm_last_time = 0.0
 
         try:
             self.context = RobotContext(
@@ -145,6 +168,12 @@ class PickingManager(Node):
             String,
             str(self.get_parameter("openmv_position_topic").value),
             self._on_openmv,
+            10,
+        )
+        self.create_subscription(
+            String,
+            str(self.get_parameter("vlm_detections_topic").value),
+            self._on_vlm_detections,
             10,
         )
         self.create_subscription(
@@ -294,6 +323,15 @@ class PickingManager(Node):
             return
 
         self.model.assign(assignment)
+        # Reset recognition gates for the new target.
+        self._vlm_stable = 0
+        self._vlm_last_time = 0.0
+        self._fine_stable = 0
+        self.model.vlm_verified = False
+        self.model.vlm_class = ""
+        self.model.vlm_confidence = 0.0
+        self.model.vlm_count = 0
+        self.model.fine_position_locked = False
         self.get_logger().info(
             "Target assigned: %s (%s) approach (%.2f, %.2f)"
             % (
@@ -302,6 +340,10 @@ class PickingManager(Node):
                 assignment.approach_x,
                 assignment.approach_y,
             )
+        )
+        self.get_logger().info(
+            "Recognition gating: target_source=%s vlm_required=%s require_openmv=%s"
+            % (self._target_source, self._vlm_required, self._require_openmv)
         )
         self._report("accepted", {"handoff_id": assignment.handoff_id})
         self._start_operation()
@@ -329,6 +371,85 @@ class PickingManager(Node):
             self.model.fine_x_mm = float(payload.get("fine_x_mm", 0.0))
             self.model.fine_y_mm = float(payload.get("fine_y_mm", 0.0))
             self.model.fine_z_mm = float(payload.get("fine_z_mm", 0.0))
+
+    def _on_vlm_detections(self, message: String) -> None:
+        """Consume large-model detections (advisory, gated before PICK)."""
+        try:
+            payload = json.loads(message.data)
+        except Exception:
+            return
+        if not isinstance(payload, dict):
+            return
+        status = str(payload.get("detector_status", ""))
+        self.model.vlm_status = status
+        detections = payload.get("detections", [])
+        if not isinstance(detections, list):
+            return
+
+        assignment = self.model.assignment
+        expected = assignment.class_name if assignment is not None else ""
+        best = None
+        for detection in detections:
+            if not isinstance(detection, dict):
+                continue
+            class_name = str(detection.get("class_name", detection.get("label", "")))
+            try:
+                confidence = float(detection.get("confidence", 0.0))
+            except (TypeError, ValueError):
+                continue
+            if confidence < self._vlm_min_confidence:
+                continue
+            if expected and class_name != expected:
+                continue
+            if best is None or confidence > best[1]:
+                best = (class_name, confidence, detection)
+
+        now = time.monotonic()
+        if best is None:
+            self._vlm_stable = max(0, self._vlm_stable - 1)
+            if self._vlm_stable == 0:
+                self.model.vlm_verified = False
+            return
+
+        class_name, confidence, detection = best
+        was_verified = self.model.vlm_verified
+        self._vlm_stable += 1
+        self._vlm_last_time = now
+        self.model.vlm_count = len(detections)
+        self.model.vlm_class = class_name
+        self.model.vlm_confidence = confidence
+        if self._vlm_stable >= self._vlm_stable_required:
+            if not was_verified:
+                self.get_logger().info(
+                    "VLM verified target '%s' (conf=%.2f, stable=%d)"
+                    % (class_name, confidence, self._vlm_stable)
+                )
+            self.model.vlm_verified = True
+            if not was_verified:
+                bbox = detection.get("bbox")
+                self._report(
+                    "phase",
+                    {
+                        "handoff_id": assignment.handoff_id if assignment else "",
+                        "phase": "vlm_verified",
+                        "class_name": class_name,
+                        "confidence": confidence,
+                        "bbox": bbox,
+                    },
+                )
+
+    def _recognition_ready(self) -> bool:
+        """Combine VLM and OpenMV gates according to target_source."""
+        now = time.monotonic()
+        openmv_ok = bool(self.model.fine_position_locked)
+        vlm_ok = bool(self.model.vlm_verified) and (
+            self._vlm_last_time > 0 and now - self._vlm_last_time <= self._vlm_stale_sec
+        )
+        if self._target_source == "openmv":
+            return openmv_ok and (vlm_ok or not self._vlm_required)
+        if self._target_source == "vlm":
+            return vlm_ok and (openmv_ok or not self._require_openmv)
+        return vlm_ok or openmv_ok
 
     def _on_arm_ready(self, message: Bool) -> None:
         self.arm_ready = bool(message.data)
@@ -595,13 +716,20 @@ class PickingManager(Node):
                 self.get_logger().info("Dog 2 ready for target assignments")
 
         elif self.model.state == PickingState.POSITIONING:
-            if self.model.fine_position_locked:
+            if self._recognition_ready():
+                self.get_logger().info(
+                    "Recognition ready (vlm=%s openmv=%s); sending PICK"
+                    % (self.model.vlm_verified, self.model.fine_position_locked)
+                )
                 self._execute_pick()
             elif self.model.elapsed_sec > float(
                 self.get_parameter("positioning_timeout_sec").value
             ):
                 self.model.state = PickingState.FAILED
-                self.model.error_message = "positioning_timeout"
+                if self._target_source == "vlm":
+                    self.model.error_message = "vlm_positioning_timeout"
+                else:
+                    self.model.error_message = "positioning_timeout"
 
         elif self.model.state == PickingState.GRASPING:
             # MyArm has no completion ACK ($DGS); use the measured busy window.

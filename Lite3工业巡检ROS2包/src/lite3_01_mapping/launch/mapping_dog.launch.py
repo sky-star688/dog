@@ -1,15 +1,15 @@
 """Dog 1 (lite3_01) – Mapping + Patrol launch file.
 
 Launches:
-  - cmd_vel_mux + cmd_vel_guard (safety chain)
+  - cmd_vel_mux / cmd_vel_guard (safety chain)
   - localization_monitor
   - map_bridge (freeze + share map with Dog 2)
   - mapping_manager (map lifecycle / save / status)
   - dog1_vision_detector + dog1_depth_projector (perception chain)
   - patrol_manager (waypoint patrol + fleet reporting)
 
-SLAM itself (slam_toolbox) is expected to run as an external launch; this
-file only consumes its /map topic.
+SLAM itself (slam_toolbox) is expected to run externally; this file consumes
+its /map topic.
 """
 
 import os
@@ -29,17 +29,14 @@ def _true(name):
 def generate_launch_description():
     pkg_share = get_package_share_directory("lite3_01_mapping")
     inspection_share = get_package_share_directory("lite3_inspection")
-    mapping_config = os.path.join(pkg_share, "config", "mapping.yaml")
-    inspection_config = os.path.join(inspection_share, "config", "inspection.yaml")
+    mapping_params = os.path.join(pkg_share, "config", "mapping_params.yaml")
+    inspection_params = os.path.join(inspection_share, "config", "inspection.yaml")
 
     namespace = LaunchConfiguration("namespace")
     robot_id = LaunchConfiguration("robot_id")
     mission_file = LaunchConfiguration("mission_file")
 
-    common = {
-        "namespace": namespace,
-        "output": "screen",
-    }
+    common = {"namespace": namespace, "output": "screen"}
 
     return LaunchDescription(
         [
@@ -48,13 +45,12 @@ def generate_launch_description():
             DeclareLaunchArgument("mission_file", default_value=""),
             DeclareLaunchArgument("enable_perception", default_value="true"),
             DeclareLaunchArgument("enable_map_sharing", default_value="true"),
-            # Safety chain (shared nodes; topics are configurable per dog).
             Node(
                 package="lite3_inspection",
                 executable="cmd_vel_mux",
                 name="cmd_vel_mux",
                 parameters=[
-                    inspection_config,
+                    inspection_params,
                     {
                         "enable_topic": "/dog1/motion_enable",
                         "estop_topic": "/dog1/estop",
@@ -67,7 +63,7 @@ def generate_launch_description():
                 executable="cmd_vel_guard",
                 name="cmd_vel_guard",
                 parameters=[
-                    inspection_config,
+                    inspection_params,
                     {"enable_topic": "/dog1/motion_enable"},
                 ],
                 **common
@@ -79,12 +75,11 @@ def generate_launch_description():
                 parameters=[{"status_topic": "/dog1/localization_status"}],
                 **common
             ),
-            # Map sharing.
             Node(
                 package="lite3_01_mapping",
                 executable="map_bridge",
                 name="map_bridge_dog1",
-                parameters=[mapping_config],
+                parameters=[mapping_params],
                 condition=_true("enable_map_sharing"),
                 **common
             ),
@@ -92,20 +87,14 @@ def generate_launch_description():
                 package="lite3_01_mapping",
                 executable="mapping_manager",
                 name="mapping_manager_dog1",
-                parameters=[mapping_config],
+                parameters=[mapping_params],
                 **common
             ),
-            # Perception chain.
             Node(
                 package="lite3_01_mapping",
                 executable="dog1_vision_detector",
                 name="vision_detector_dog1",
-                parameters=[
-                    {
-                        "camera_topic": "/camera/color/image_raw",
-                        "detections_topic": "/dog1/detections",
-                    }
-                ],
+                parameters=[mapping_params],
                 condition=_true("enable_perception"),
                 **common
             ),
@@ -113,17 +102,16 @@ def generate_launch_description():
                 package="lite3_01_mapping",
                 executable="dog1_depth_projector",
                 name="depth_projector_dog1",
-                parameters=[mapping_config],
+                parameters=[mapping_params],
                 condition=_true("enable_perception"),
                 **common
             ),
-            # Patrol brain.
             Node(
                 package="lite3_01_mapping",
                 executable="patrol_manager",
                 name="patrol_manager_dog1",
                 parameters=[
-                    mapping_config,
+                    mapping_params,
                     {
                         "robot_id": robot_id,
                         "namespace": namespace,

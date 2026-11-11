@@ -17,10 +17,12 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/FleetStatus.msg"
   "msg/WorkspaceState.msg"
   "msg/HandoffState.msg"
+  "msg/VlmDetection.msg"
   "srv/HandoffRequest.srv"
   "srv/WorkspaceReserve.srv"
   "srv/FleetCommand.srv"
   "srv/TargetAssignment.srv"
+  "srv/VlmQuery.srv"
   "action/Handoff.action"
   DEPENDENCIES
     action_msgs

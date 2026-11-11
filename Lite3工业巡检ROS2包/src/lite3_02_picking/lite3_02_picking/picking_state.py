@@ -111,6 +111,13 @@ class PickingModel:
     fine_y_mm: float = 0.0
     fine_z_mm: float = 0.0
 
+    # Large-model (VLM) recognition result, advisory only.
+    vlm_verified: bool = False
+    vlm_class: str = ""
+    vlm_confidence: float = 0.0
+    vlm_count: int = 0
+    vlm_status: str = "starting"
+
     arm_ready: bool = False
     arm_busy: bool = False
     pick_complete: bool = False
@@ -150,6 +157,10 @@ class PickingModel:
         self.pick_complete = False
         self.place_complete = False
         self.fine_position_locked = False
+        self.vlm_verified = False
+        self.vlm_class = ""
+        self.vlm_confidence = 0.0
+        self.vlm_count = 0
         self.error_message = ""
 
     def to_dict(self) -> Dict[str, Any]:
@@ -161,6 +172,10 @@ class PickingModel:
             "arm_ready": self.arm_ready,
             "arm_busy": self.arm_busy,
             "openmv_ok": self.openmv_ok,
+            "vlm_verified": self.vlm_verified,
+            "vlm_class": self.vlm_class,
+            "vlm_confidence": self.vlm_confidence,
+            "vlm_status": self.vlm_status,
             "elapsed_sec": self.elapsed_sec,
             "assignment": (
                 None if self.assignment is None else self.assignment.to_dict()

@@ -1,0 +1,23 @@
+# Copy to mission.yaml and replace waypoints with surveyed coordinates.
+# The manager refuses to start while waypoints is empty.
+mission:
+  mission_id: lite3_patrol_v1
+  robot_id: lite3_01
+  map_id: lite3
+  map_version: unversioned
+  frame_id: map
+  stop_on_failure: true
+  default_tolerance_xy: 0.30
+  default_tolerance_yaw: 0.35
+  default_settle_sec: 2.0
+  default_timeout_sec: 120.0
+  default_max_retries: 1
+  waypoints: []
+  # waypoints:
+  #   - name: inspect_01
+  #     frame_id: map
+  #     x: SURVEYED_X
+  #     y: SURVEYED_Y
+  #     z: 0.0
+  #     yaw: SURVEYED_YAW
+  #     inspect: true

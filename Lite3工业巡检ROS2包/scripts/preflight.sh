@@ -1,22 +1,30 @@
 #!/usr/bin/env bash
-set -u
+# Read-only preflight: verify external topics/actions exist before starting.
+set -euo pipefail
 
-echo "== ROS version =="
-printenv ROS_DISTRO || true
+fail=0
+check() {
+  local label="$1"; shift
+  if "$@" >/dev/null 2>&1; then
+    echo "OK   $label"
+  else
+    echo "FAIL $label"
+    fail=1
+  fi
+}
 
-echo "== Lite3 services =="
-systemctl is-active transfer_ros2 || true
-systemctl is-active realsense_ros2 || true
+check "action navigate_to_pose"    ros2 action list
+check "topic /leg_odom2"           ros2 topic list
+check "topic /camera/color/image_raw" ros2 topic list
+check "topic /camera/aligned_depth_to_color/image_raw" ros2 topic list
 
-echo "== ROS interfaces =="
-ros2 topic list 2>/dev/null | grep -E 'cmd_vel|imu/data|joint_states|leg_odom|camera' || true
+if ros2 topic list | grep -qx "/cmd_vel"; then
+  echo "WARN /cmd_vel exists before guard start; verify publisher ownership"
+fi
+if ros2 node list | grep -qx "/cmd_vel_guard"; then
+  echo "OK   guard is running"
+else
+  echo "WARN guard is not running yet"
+fi
 
-echo "== Arm serial candidates =="
-ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null || true
-
-echo "== Model =="
-ls -l "$HOME/lite3_industrial_inspection_ws/models/best.onnx" 2>/dev/null || true
-
-echo "== Network =="
-ip -br address
-ip route
+exit "$fail"

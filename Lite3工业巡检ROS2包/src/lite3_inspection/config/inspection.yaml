@@ -33,6 +33,28 @@ localization_monitor:
     require_tf: true
     publish_hz: 2.0
 
+depth_projector:
+  ros__parameters:
+    detections_topic: /inspection/detections
+    output_topic: /inspection/detections_3d
+    status_topic: /inspection/depth_status
+    depth_topic: /camera/aligned_depth_to_color/image_raw
+    camera_info_topic: /camera/color/camera_info
+    target_frame: map
+    max_depth_age_sec: 1.0
+    min_valid_ratio: 0.30
+    max_mad_m: 0.05
+    min_depth_m: 0.15
+    max_depth_m: 6.0
+    sample_step: 2
+
+event_recorder:
+  ros__parameters:
+    event_topic: /inspection/event
+    robot_id: lite3_01
+    mission_id: runtime
+    root_dir: ""
+
 arm_serial_bridge:
   ros__parameters:
     port: /dev/ttyUSB0

@@ -1,0 +1,15 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.msg text eol=lf
+*.srv text eol=lf
+*.action text eol=lf
+*.xml text eol=lf
+*.txt text eol=lf
+*.pgm binary
+*.pcd binary
+*.onnx binary
+*.pt binary

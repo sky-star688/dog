@@ -27,6 +27,8 @@ setup(
             "localization_monitor = lite3_inspection.localization_monitor:main",
             "arm_serial_bridge = lite3_inspection.arm_serial_bridge:main",
             "vision_detector = lite3_inspection.vision_detector:main",
+            "depth_projector = lite3_inspection.depth_projector:main",
+            "event_recorder = lite3_inspection.event_recorder:main",
             "inspection_manager = lite3_inspection.inspection_manager:main",
         ],
     },

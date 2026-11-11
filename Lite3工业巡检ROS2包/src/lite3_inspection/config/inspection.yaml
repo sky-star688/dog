@@ -1,3 +1,15 @@
+cmd_vel_mux:
+  ros__parameters:
+    nav_topic: /inspection/cmd_vel_nav
+    teleop_topic: /inspection/cmd_vel_teleop
+    aux_topic: /inspection/cmd_vel_aux
+    output_topic: /inspection/cmd_vel_raw
+    enable_topic: /inspection/motion_enable
+    estop_topic: /inspection/estop
+    status_topic: /inspection/mux_status
+    publish_hz: 20.0
+    start_enabled: false
+
 cmd_vel_guard:
   ros__parameters:
     input_topic: /inspection/cmd_vel_raw
@@ -9,6 +21,17 @@ cmd_vel_guard:
     max_linear_y: 0.15
     max_angular_z: 0.50
     start_enabled: false
+
+localization_monitor:
+  ros__parameters:
+    odom_topic: /leg_odom2
+    status_topic: /inspection/localization_status
+    info_topic: /inspection/localization_info
+    map_frame: map
+    base_frame: base_link
+    odom_timeout_sec: 1.0
+    require_tf: true
+    publish_hz: 2.0
 
 arm_serial_bridge:
   ros__parameters:

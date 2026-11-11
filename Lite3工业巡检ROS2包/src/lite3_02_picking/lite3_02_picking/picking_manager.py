@@ -114,6 +114,7 @@ class PickingManager(Node):
         self._fine = None
         self._fine_stable = 0
         self._fine_required = 10
+        self._action_started = 0.0
 
         self.arm_pub = self.create_publisher(
             String, str(self.get_parameter("arm_command_topic").value), 10
@@ -448,6 +449,7 @@ class PickingManager(Node):
 
     def _execute_pick(self) -> None:
         self.model.state = PickingState.GRASPING
+        self._action_started = time.monotonic()
         self._report(
             "phase",
             {
@@ -460,6 +462,7 @@ class PickingManager(Node):
 
     def _execute_place(self) -> None:
         self.model.state = PickingState.PLACING
+        self._action_started = time.monotonic()
         self._report(
             "phase",
             {
@@ -601,24 +604,25 @@ class PickingManager(Node):
                 self.model.error_message = "positioning_timeout"
 
         elif self.model.state == PickingState.GRASPING:
-            if not self.arm_busy and self.model.elapsed_sec > 1.0:
+            # MyArm has no completion ACK ($DGS); use the measured busy window.
+            if (
+                self._action_started
+                and now - self._action_started
+                >= float(self.get_parameter("pick_timeout_sec").value)
+            ):
                 self.model.pick_complete = True
+                self.get_logger().info("Pick busy window elapsed; sending PLACE")
                 self._execute_place()
-            elif self.model.elapsed_sec > float(
-                self.get_parameter("pick_timeout_sec").value
-            ) + 5.0:
-                self.model.state = PickingState.FAILED
-                self.model.error_message = "pick_timeout"
 
         elif self.model.state == PickingState.PLACING:
-            if not self.arm_busy and self.model.elapsed_sec > 1.0:
+            if (
+                self._action_started
+                and now - self._action_started
+                >= float(self.get_parameter("place_timeout_sec").value)
+            ):
                 self.model.place_complete = True
+                self.get_logger().info("Place busy window elapsed; retreating")
                 self._retreat()
-            elif self.model.elapsed_sec > float(
-                self.get_parameter("place_timeout_sec").value
-            ) + 5.0:
-                self.model.state = PickingState.FAILED
-                self.model.error_message = "place_timeout"
 
         if self._nav_active and self.model.assignment is not None:
             if (

@@ -23,6 +23,8 @@ setup(
     entry_points={
         "console_scripts": [
             "cmd_vel_guard = lite3_inspection.cmd_vel_guard:main",
+            "cmd_vel_mux = lite3_inspection.cmd_vel_mux:main",
+            "localization_monitor = lite3_inspection.localization_monitor:main",
             "arm_serial_bridge = lite3_inspection.arm_serial_bridge:main",
             "vision_detector = lite3_inspection.vision_detector:main",
             "inspection_manager = lite3_inspection.inspection_manager:main",

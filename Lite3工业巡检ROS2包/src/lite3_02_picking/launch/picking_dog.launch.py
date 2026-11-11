@@ -66,13 +66,23 @@ def generate_launch_description():
                 package="lite3_inspection",
                 executable="cmd_vel_mux",
                 name="cmd_vel_mux",
+                parameters=[
+                    inspection_config,
+                    {
+                        "enable_topic": "/dog2/motion_enable",
+                        "estop_topic": "/dog2/estop",
+                    },
+                ],
                 **common
             ),
             Node(
                 package="lite3_inspection",
                 executable="cmd_vel_guard",
                 name="cmd_vel_guard",
-                parameters=[inspection_config],
+                parameters=[
+                    inspection_config,
+                    {"enable_topic": "/dog2/motion_enable"},
+                ],
                 **common
             ),
             Node(

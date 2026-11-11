@@ -1,0 +1,108 @@
+# Dog 2 – OpenMV precision picking + MyArm-2 arm configuration.
+
+dog2:
+  robot_id: lite3_02
+  description: "Picking dog – OpenMV + depth camera + MyArm-2 arm"
+
+hardware:
+  openmv:
+    port: /dev/ttyACM0
+    baudrate: 115200
+  depth_camera:
+    type: realsense_d435
+    color_topic: /dog2/camera/color/image_raw
+    depth_topic: /dog2/camera/aligned_depth_to_color/image_raw
+  arm:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    pick_group: 1
+    place_group: 2
+    home_command: "$DJR!"
+    stop_command: "$DST!"
+    pick_timeout_sec: 15.0
+    place_timeout_sec: 15.0
+
+# Shared map from Dog 1 (must be frozen + hash-verified before use).
+map:
+  shared_topic: /shared_map
+  local_topic: /map
+  metadata_topic: /shared_map/metadata
+
+# Localisation on Dog 1's shared map.
+# CRITICAL: Dog 2 uses AMCL against Dog 1's /shared_map.  The initial pose
+# MUST be the surveyed real-world position of Dog 2 in that map.  If wrong,
+# Dog 2 will never localise and picking_manager will reject all targets.
+localization:
+  initial_x: 0.0          # SURVEYED – Dog 2 home X in map frame
+  initial_y: 0.0          # SURVEYED – Dog 2 home Y in map frame
+  initial_yaw: 0.0        # SURVEYED – Dog 2 home orientation (radians)
+  initial_cov_xy: 0.25
+  initial_cov_yaw: 0.10
+  convergence_cov_xy_max: 0.15
+  convergence_cov_yaw_max: 0.08
+  convergence_stable_frames: 10
+  divergence_cov_xy_min: 1.0
+  auto_relocalize: true
+  relocalize_delay_sec: 5.0
+  amcl_pose_topic: /amcl_pose
+  initial_pose_topic: /initialpose
+  localization_status_topic: /dog2/localization_status
+  localization_info_topic: /dog2/localization_info
+
+# Workspaces (must match fleet_manager/config/fleet.yaml).
+workspaces:
+  - id: ws_pick_zone_01
+    description: "Primary pick/place zone"
+    approach_x: 4.0     # SURVEYED
+    approach_y: 5.0
+    approach_yaw: 0.0
+    centre_x: 5.0
+    centre_y: 5.0
+    retreat_x: 4.0
+    retreat_y: 5.0
+    retreat_yaw: 3.1416
+
+  - id: ws_pick_zone_02
+    description: "Secondary pick/place zone"
+    approach_x: 8.0     # SURVEYED
+    approach_y: 3.0
+    approach_yaw: 0.0
+    centre_x: 9.0
+    centre_y: 3.0
+    retreat_x: 8.0
+    retreat_y: 3.0
+    retreat_yaw: 3.1416
+
+# Home position (idle pose).
+home:
+  x: 0.0              # SURVEYED
+  y: 0.0
+  yaw: 0.0
+  frame_id: map
+
+navigation:
+  action_name: navigate_to_pose
+  server_wait_sec: 2.0
+
+openmv:
+  pixel_width: 320
+  pixel_height: 240
+  target_min_width: 20
+  target_max_width: 200
+  mm_per_pixel: 0.5            # REQUIRES CALIBRATION
+  arm_offset_x_mm: 100.0
+  arm_offset_y_mm: 0.0
+  arm_offset_z_mm: 50.0
+  stable_frames: 10
+  positioning_timeout_sec: 30.0
+
+safety:
+  max_linear_x: 0.30
+  max_linear_y: 0.15
+  max_angular_z: 0.50
+  estop_topic: /dog2/estop
+
+fleet:
+  mode: true
+  heartbeat_topic_base: /fleet/heartbeat
+  heartbeat_interval_sec: 1.0

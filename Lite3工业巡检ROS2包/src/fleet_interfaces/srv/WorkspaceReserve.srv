@@ -1,0 +1,10 @@
+string workspace_id
+string robot_id
+string action
+string target_id
+float32 duration_sec
+---
+bool success
+string state
+string message
+int32 error_code

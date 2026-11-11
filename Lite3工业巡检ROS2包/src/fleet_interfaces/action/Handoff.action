@@ -1,0 +1,15 @@
+string target_id
+geometry_msgs/Pose coarse_pose
+string workspace_id
+string approach_frame_id
+bool execute_place
+geometry_msgs/Pose place_pose
+---
+bool success
+string message
+int32 error_code
+geometry_msgs/Pose final_pose
+---
+string phase
+float32 progress
+string detail

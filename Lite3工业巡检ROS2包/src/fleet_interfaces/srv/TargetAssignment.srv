@@ -1,0 +1,10 @@
+string target_id
+string inspector_id
+geometry_msgs/Pose target_pose
+string class_name
+float32 confidence
+string workspace_id
+---
+bool accepted
+string message
+int32 error_code

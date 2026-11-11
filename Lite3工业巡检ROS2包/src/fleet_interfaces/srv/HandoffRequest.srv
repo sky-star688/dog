@@ -1,0 +1,10 @@
+string target_id
+string from_robot
+string to_robot
+string workspace_id
+geometry_msgs/Pose target_pose
+---
+bool accepted
+string handoff_id
+string message
+int32 error_code

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# ROS 2 build artifacts
+build/
+install/
+log/
+
+# Models (large binary files)
+models/*.onnx
+models/*.pt
+models/*.engine
+
+# Local map artefacts
+maps/*.pgm
+maps/*.pcd
+maps/*.yaml
+maps/*.json
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Calibration and runtime output (machine specific)
+*.calib.json

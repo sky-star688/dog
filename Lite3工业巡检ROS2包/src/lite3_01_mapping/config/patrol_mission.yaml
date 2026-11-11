@@ -1,0 +1,29 @@
+# Dog 1 patrol mission – replace coordinates with values surveyed from the map.
+# Copy this file to patrol_mission.yaml and fill in real waypoints before use.
+
+mission:
+  mission_id: dog1_patrol_v1
+  robot_id: lite3_01
+  map_id: lite3_shared
+  map_version: live
+  frame_id: map
+
+  waypoints: []
+  # waypoints:
+  #   - name: wp_home
+  #     frame_id: map
+  #     x: SURVEYED_X
+  #     y: SURVEYED_Y
+  #     yaw: 0.0
+  #     inspect: false
+  #     settle_sec: 0.0
+  #     timeout_sec: 30.0
+  #
+  #   - name: wp_inspect_zone1
+  #     frame_id: map
+  #     x: SURVEYED_X
+  #     y: SURVEYED_Y
+  #     yaw: SURVEYED_YAW
+  #     inspect: true
+  #     settle_sec: 3.0
+  #     timeout_sec: 120.0

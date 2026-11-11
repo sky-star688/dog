@@ -1,0 +1,57 @@
+# Dog 1 – LiDAR SLAM + depth-camera mapping/patrol configuration.
+
+dog1:
+  robot_id: lite3_01
+  description: "Mapping & patrol dog – LiDAR SLAM, depth camera, waypoint patrol"
+
+hardware:
+  lidar:
+    type: livox_mid360
+    topic: /livox/lidar
+    frame_id: lidar_frame
+  depth_camera:
+    type: realsense_d435
+    color_topic: /camera/color/image_raw
+    depth_topic: /camera/aligned_depth_to_color/image_raw
+    camera_info_topic: /camera/color/camera_info
+
+slam:
+  package: slam_toolbox
+  mode: mapping
+  map_topic: /map
+  map_save_dir: maps/
+
+# Map sharing with Dog 2.
+# Dog 2 localises against a frozen snapshot; live SLAM updates would drift.
+map_sharing:
+  enabled: true
+  shared_topic: /shared_map
+  metadata_topic: /shared_map/metadata
+  auto_freeze_after_sec: 30.0   # 0 = manual freeze via /dog1/freeze_map
+
+patrol:
+  default_tolerance_xy: 0.30
+  default_tolerance_yaw: 0.35
+  default_settle_sec: 2.0
+  default_timeout_sec: 120.0
+
+perception:
+  model_path: models/best.onnx
+  labels_path: models/labels.txt
+  target_classes: [anomaly, block]
+  minimum_confidence: 0.65
+  stable_frames: 5
+  detection_reset_sec: 1.0
+
+safety:
+  max_linear_x: 0.30
+  max_linear_y: 0.15
+  max_angular_z: 0.50
+  estop_topic: /dog1/estop
+  localization_topic: /dog1/localization_status
+
+fleet:
+  mode: true
+  heartbeat_topic_base: /fleet/heartbeat
+  target_topic: /fleet/target_detection
+  heartbeat_interval_sec: 1.0

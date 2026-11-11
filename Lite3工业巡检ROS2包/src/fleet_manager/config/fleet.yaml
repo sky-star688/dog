@@ -1,0 +1,80 @@
+# Fleet-level configuration for dual-Lite3 collaborative missions.
+#
+# Replace all workspace coordinates with values surveyed from the actual map.
+
+fleet:
+  fleet_id: fleet_01
+  description: "Dual Lite3 collaborative inspection & operation"
+
+  inspector:
+    robot_id: lite3_01
+    role: inspector
+    namespace: "/"
+    description: "Patrol dog – LiDAR SLAM mapping + depth camera + anomaly detection"
+
+  operator:
+    robot_id: lite3_02
+    role: operator
+    namespace: "/"
+    description: "Operation dog – OpenMV + depth camera + MyArm-2"
+
+# Workspace definitions for arm operations.
+workspaces:
+  - id: ws_pick_zone_01
+    description: "Primary pick/place zone"
+    approach_x: 4.0    # SURVEYED
+    approach_y: 5.0
+    approach_yaw: 0.0
+    centre_x: 5.0
+    centre_y: 5.0
+    retreat_x: 4.0
+    retreat_y: 5.0
+    retreat_yaw: 3.1416
+    frame_id: map
+    boundary:
+      - [4.5, 4.5]
+      - [5.5, 4.5]
+      - [5.5, 5.5]
+      - [4.5, 5.5]
+    max_occupancy_sec: 300.0
+    reservation_timeout_sec: 600.0
+
+  - id: ws_pick_zone_02
+    description: "Secondary pick/place zone"
+    approach_x: 8.0    # SURVEYED
+    approach_y: 3.0
+    approach_yaw: 0.0
+    centre_x: 9.0
+    centre_y: 3.0
+    retreat_x: 8.0
+    retreat_y: 3.0
+    retreat_yaw: 3.1416
+    frame_id: map
+    boundary:
+      - [8.5, 2.5]
+      - [9.5, 2.5]
+      - [9.5, 3.5]
+      - [8.5, 3.5]
+    max_occupancy_sec: 300.0
+    reservation_timeout_sec: 600.0
+
+# Safety parameters
+safety:
+  robot_to_robot_min_m: 3.0
+  inspector_to_workspace_min_m: 5.0
+  operator_approach_offset_m: 2.0
+  max_handoff_duration_sec: 600.0
+  max_operator_response_sec: 30.0
+  battery_warning_voltage: 22.0
+  battery_critical_voltage: 21.0
+  heartbeat_timeout_sec: 3.0
+  localization_loss_timeout_sec: 2.0
+
+# Handoff protocol
+handoff:
+  mode: serial
+  max_concurrent_handoffs: 1
+  retry_on_failure: false
+  auto_accept: true
+  inspector_safety_distance_m: 5.0
+  workspace_release_timeout_sec: 30.0

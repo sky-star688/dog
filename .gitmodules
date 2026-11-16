@@ -1,0 +1,3 @@
+[submodule "Lite3仿真环境/ws/src/deep_robotics_model"]
+	path = Lite3仿真环境/ws/src/deep_robotics_model
+	url = https://github.com/DeepRoboticsLab/deep_robotics_model.git

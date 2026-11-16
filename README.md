@@ -46,6 +46,7 @@ dog/
 │   ├── scripts/                   # build.sh / run_dog1.sh / run_dog2.sh / run_fleet.sh / run_dual.sh
 │   ├── models/                    # YOLO 模型
 │   └── README.md                  # 工作空间详细说明（含定位漂移处理）
+├── Lite3仿真环境/                 # Docker + ROS2 Foxy + Gazebo Classic 仿真
 ├── 机器狗源文件/                   # 第三方驱动（Livox、Leishen、Orbbec、MID360）
 └── 视觉机械臂MyArm-2/              # MyArm-2 固件与工具
 ```
@@ -62,6 +63,29 @@ bash scripts/build.sh fleet    # 只编译协调器
 
 bash scripts/run_dual.sh       # 一键启动双狗系统
 ```
+
+## Lite3 Gazebo 仿真环境
+
+`Lite3仿真环境/` 提供 Docker + ROS 2 Foxy + Gazebo Classic 11 的仿真工作空间，
+包含 Lite3 URDF、运动学底座、深度相机/LiDAR/IMU、MyArm-2 简化模型和仓库节点联调。
+
+```bash
+cd Lite3仿真环境
+git submodule update --init --recursive
+./build.sh
+./build_ws.sh
+./sim.sh
+```
+
+另开终端：
+
+```bash
+cd Lite3仿真环境
+./exec.sh
+ros2 launch lite3_sim repo_bridge.launch.py
+```
+
+详见 [Lite3仿真环境/README.md](Lite3仿真环境/README.md)。
 
 ## 地图漂移与 Dog 2 初始定位
 
